@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">CRS EMERGENCIAS</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Logo Cruz Roja Salvadoreña</string>
+    <string name="singout">Cerrar Sesión</string>
+
+    <string name="menu_home">Emergencia</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+
+    <!--  Register Activity  -->
+    <string name="tvRegisterLabel">Registra tus datos</string>
+    <string name="tbRegisterTelefono">Telefono</string>
+    <string name="tbRegisterNombre">Nombre</string>
+    <string name="tbRegisterPassWord">Password</string>
+    <string name="tbRegisterEmail">Email</string>
+    <string name="btnRegistrar">Registrar</string>
+    <string name="tvIngresa">Ya estas registrado? Ingresa</string>
+
+    <!--  Login Activity  -->
+    <string name="tvLoginLabel">Ingresa tu Telefono y Contraseña</string>
+    <string name="tbLoginTelefono">Telefono</string>
+    <string name="tbLoginPassWord">Password</string>
+    <string name="btnIngresar">Ingresar</string>
+    <string name="tvRegistrate">Nuevo usuario? Registrate</string>
+
+</resources>
