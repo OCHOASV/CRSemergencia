@@ -29,5 +29,8 @@
     <string name="tbLoginPassWord">Password</string>
     <string name="btnIngresar">Ingresar</string>
     <string name="tvRegistrate">Nuevo usuario? Registrate</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="cruz_roja">Cruz Roja</string>
+    <string name="pnc">PNC</string>
 
 </resources>

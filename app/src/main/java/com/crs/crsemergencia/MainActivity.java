@@ -1,16 +1,21 @@
 package com.crs.crsemergencia;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.RequiresApi;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.crs.crsemergencia.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -25,7 +30,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     // Para datos del navHeader
-    private int idUser;
+    private String idUser;
     private userParcelable user;
 
     // Key o ID de las preferences, por lo general se coloca el nombre del paquete
@@ -50,9 +55,11 @@ public class MainActivity extends AppCompatActivity {
             Bundle bundle = getIntent().getExtras();
             user = bundle.getParcelable("DATA_USER");
             if (bundle != null){
-                idUser = user.getId();
+                idUser = String.valueOf(user.getId());
+
                 ((TextView) header.findViewById(R.id.tvUserHeader)).setText(user.getNombre());
                 ((TextView) header.findViewById(R.id.tvEmailHeader)).setText(user.getTelefono());
+                ((TextView) header.findViewById(R.id.tvUserID)).setText(idUser);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -77,9 +84,18 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
+
+        HomeFragment homeFragment = new HomeFragment();
+        Bundle datos = new Bundle();
+        datos.putString("USER", idUser);// Aquí lo he puesto directamente el string
+        homeFragment.setArguments(datos);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            verifyPermission();
+        }
     }
 
     @Override
@@ -120,5 +136,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void deleteSharedPreferences(){
         sessionUser.edit().clear().apply();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void verifyPermission() {
+        int permsRequestCode = 100;
+        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE};
+        int accessFinePermission = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+        int accessCoarsePermission = checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
+        int cameraPermission = checkSelfPermission(Manifest.permission.CALL_PHONE);
+
+        if (cameraPermission == PackageManager.PERMISSION_GRANTED && accessFinePermission == PackageManager.PERMISSION_GRANTED && accessCoarsePermission == PackageManager.PERMISSION_GRANTED) {
+            //se realiza metodo si es necesario...
+        } else {
+            requestPermissions(perms, permsRequestCode);
+        }
     }
 }
