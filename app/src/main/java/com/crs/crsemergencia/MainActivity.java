@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
                 ((TextView) header.findViewById(R.id.tvUserHeader)).setText(user.getNombre());
                 ((TextView) header.findViewById(R.id.tvEmailHeader)).setText(user.getTelefono());
-                ((TextView) header.findViewById(R.id.tvUserID)).setText(idUser);
             }
         }catch (Exception e){
             e.printStackTrace();

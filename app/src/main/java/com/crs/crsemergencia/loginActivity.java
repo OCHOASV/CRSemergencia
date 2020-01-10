@@ -222,4 +222,5 @@ public class loginActivity extends AppCompatActivity {
         sessionUser = getSharedPreferences(preferecesKey,MODE_PRIVATE);
         return sessionUser.getBoolean(preferecesSession, false);
     }
+
 }
