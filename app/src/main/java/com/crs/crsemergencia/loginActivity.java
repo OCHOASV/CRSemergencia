@@ -1,10 +1,15 @@
 package com.crs.crsemergencia;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,7 +58,9 @@ public class loginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            verifyPermission();
+        }
         // Manejo toda la logica de verificar si hay sesion iniciada
         if (getSessionPreference()){
             sessionUser = getSharedPreferences(preferecesKey, MODE_PRIVATE);
@@ -223,4 +230,18 @@ public class loginActivity extends AppCompatActivity {
         return sessionUser.getBoolean(preferecesSession, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void verifyPermission() {
+        int permsRequestCode = 100;
+        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE};
+        int accessFinePermission = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+        int accessCoarsePermission = checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
+        int cameraPermission = checkSelfPermission(Manifest.permission.CALL_PHONE);
+
+        if (cameraPermission == PackageManager.PERMISSION_GRANTED && accessFinePermission == PackageManager.PERMISSION_GRANTED && accessCoarsePermission == PackageManager.PERMISSION_GRANTED) {
+
+        } else {
+            requestPermissions(perms, permsRequestCode);
+        }
+    }
 }

@@ -1,9 +1,12 @@
 package com.crs.crsemergencia.ui.home;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -11,6 +14,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +39,7 @@ import com.crs.crsemergencia.MainActivity;
 import com.crs.crsemergencia.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -59,7 +64,7 @@ public class HomeFragment extends Fragment implements LocationListener, GoogleAp
     double longitudeGPS, latitudeGPS;
     // Creating Progress dialog.
     ProgressDialog progressDialog;
-
+    AlertDialog Alert;
     // Storing server url into String variable.
     String HttpUrl = "https://www.simcrs.org.sv/crs/emergencias/userAppEmergencia.php";
     // Create string variable to hold the EditText Value.
@@ -97,6 +102,10 @@ public class HomeFragment extends Fragment implements LocationListener, GoogleAp
                 (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(getContext(),Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
+        }
+
+        if(!mgr.isProviderEnabled(mgr.GPS_PROVIDER)) {
+            ActivarGPS();
         }
 
         //Tiempo de actualización, 6 segundos y 10 metros.
@@ -241,6 +250,19 @@ public class HomeFragment extends Fragment implements LocationListener, GoogleAp
 
     }
 
+    private void ActivarGPS() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("El GPS está desactivado, ¿Desea encenderlo?").setCancelable(true)
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    };
+                });
+        Alert = builder.create();
+        Alert.show();
+    }
+
     private final LocationListener locationListenerGPS = new LocationListener() {
         public void onLocationChanged(Location location) {
             longitudeGPS = location.getLongitude();
@@ -296,5 +318,4 @@ public class HomeFragment extends Fragment implements LocationListener, GoogleAp
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
-
 }

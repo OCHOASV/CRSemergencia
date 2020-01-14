@@ -92,9 +92,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            verifyPermission();
-        }
     }
 
     @Override
@@ -137,18 +134,4 @@ public class MainActivity extends AppCompatActivity {
         sessionUser.edit().clear().apply();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void verifyPermission() {
-        int permsRequestCode = 100;
-        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE};
-        int accessFinePermission = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
-        int accessCoarsePermission = checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
-        int cameraPermission = checkSelfPermission(Manifest.permission.CALL_PHONE);
-
-        if (cameraPermission == PackageManager.PERMISSION_GRANTED && accessFinePermission == PackageManager.PERMISSION_GRANTED && accessCoarsePermission == PackageManager.PERMISSION_GRANTED) {
-            //se realiza metodo si es necesario...
-        } else {
-            requestPermissions(perms, permsRequestCode);
-        }
-    }
 }
