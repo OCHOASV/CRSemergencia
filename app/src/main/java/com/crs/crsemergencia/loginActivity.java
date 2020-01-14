@@ -230,18 +230,22 @@ public class loginActivity extends AppCompatActivity {
         return sessionUser.getBoolean(preferecesSession, false);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     private void verifyPermission() {
-        int permsRequestCode = 100;
-        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE};
-        int accessFinePermission = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
-        int accessCoarsePermission = checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
-        int cameraPermission = checkSelfPermission(Manifest.permission.CALL_PHONE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            int permsRequestCode = 100;
+            String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE};
+            int accessFinePermission = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+            int accessCoarsePermission = checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
+            int callphone = checkSelfPermission(Manifest.permission.CALL_PHONE);
 
-        if (cameraPermission == PackageManager.PERMISSION_GRANTED && accessFinePermission == PackageManager.PERMISSION_GRANTED && accessCoarsePermission == PackageManager.PERMISSION_GRANTED) {
+            if (callphone == PackageManager.PERMISSION_GRANTED && accessFinePermission == PackageManager.PERMISSION_GRANTED && accessCoarsePermission == PackageManager.PERMISSION_GRANTED) {
 
-        } else {
-            requestPermissions(perms, permsRequestCode);
+            } else {
+                requestPermissions(perms, permsRequestCode);
+            }
         }
+
     }
 }
