@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
         *
         * Deben borrar el Toast y esto al finalizar (¬_¬)
         * */
-        Toast.makeText(this, "ID del usuario => " + user.getId(), Toast.LENGTH_SHORT).show();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);

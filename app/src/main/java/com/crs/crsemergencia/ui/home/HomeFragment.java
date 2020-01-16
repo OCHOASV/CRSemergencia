@@ -122,9 +122,11 @@ public class HomeFragment extends Fragment implements LocationListener, GoogleAp
                             if (location != null) {
                                 Lat = location.getLatitude();
                                 Lon = location.getLongitude();
-                            } else {
-                                Toast.makeText(HomeFragment.super.getContext(), "Error  !!!", Toast.LENGTH_LONG).show();
                             }
+                            // OCHOA
+                            /*else {
+                                Toast.makeText(HomeFragment.super.getContext(), "Error  !!!", Toast.LENGTH_LONG).show();
+                            }*/
                         }
                     });
         } catch (Exception ex) {
@@ -189,7 +191,7 @@ public class HomeFragment extends Fragment implements LocationListener, GoogleAp
                 requestQueue.add(stringRequest);
                 //Lanzamos llamada
                 Intent intent = new Intent(Intent.ACTION_CALL);
-                intent.setData(Uri.parse("tel:" + "+503 76347337"));
+                intent.setData(Uri.parse("tel:" + "+503 22394939"));
                 startActivity(intent);
             }
         });
@@ -241,7 +243,7 @@ public class HomeFragment extends Fragment implements LocationListener, GoogleAp
                 requestQueue.add(stringRequest);
                 //Lanzamos llamada
                 Intent intent = new Intent(Intent.ACTION_CALL);
-                intent.setData(Uri.parse("tel:" + "+503 76347337"));
+                intent.setData(Uri.parse("tel:" + "911"));
                 startActivity(intent);
             }
         });
@@ -289,7 +291,7 @@ public class HomeFragment extends Fragment implements LocationListener, GoogleAp
     private void setParameters() {
         //UserName = IdUser;
 
-        AddressDescription = "CASA DE CESAR";
+        AddressDescription = "UBICACION DEL PACIENTE";
         CoordinateLink = "https://maps.google.com/?q=" + latitudeGPS + "," + longitudeGPS;
     }
 
