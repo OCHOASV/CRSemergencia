@@ -290,7 +290,11 @@ public class HomeFragment extends Fragment implements LocationListener, GoogleAp
 
     private void setParameters() {
         //UserName = IdUser;
-
+        if(latitudeGPS == 0.0 && longitudeGPS == 0.0)
+        {
+            Toast.makeText(HomeFragment.super.getContext(), "Ocurrió un error al obtener la ubicación. Intente de nuevo por favor.", Toast.LENGTH_LONG).show();
+            return;
+        }
         AddressDescription = "UBICACION DEL PACIENTE";
         CoordinateLink = "https://maps.google.com/?q=" + latitudeGPS + "," + longitudeGPS;
     }
